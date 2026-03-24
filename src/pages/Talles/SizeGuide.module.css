@@ -1,0 +1,465 @@
+.sizeGuide {
+  padding: var(--s12) 0 var(--s16);
+  background: var(--color-bg);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--s10);
+}
+
+.header h2 {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--s3);
+  color: var(--color-text);
+}
+
+.intro {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--s2);
+  margin-bottom: var(--s8);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab {
+  padding: var(--s3) var(--s6);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.tab:hover {
+  color: var(--color-text);
+}
+
+.tabActive {
+  color: var(--color-text);
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-text);
+}
+
+.tableContainer {
+  overflow-x: auto;
+  margin: var(--s6) 0;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+}
+
+.table th {
+  padding: var(--s4) var(--s3);
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: var(--sand);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table td {
+  padding: var(--s4) var(--s3);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.measureCell {
+  text-align: left !important;
+  padding-left: var(--s4) !important;
+  background: var(--color-surface);
+  font-weight: 500;
+}
+
+.measureDescription {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: var(--s1);
+  line-height: 1.4;
+}
+
+.sizeCell {
+  font-weight: 500;
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+/* Hover effect */
+.table tr:hover td {
+  background: var(--sand);
+}
+
+.table tr:hover .measureCell {
+  background: var(--sand);
+}
+
+.footer {
+  margin-top: var(--s6);
+  text-align: center;
+}
+
+.note {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sizeGuide {
+    padding: var(--s8) 0 var(--s12);
+  }
+
+  .header h2 {
+    font-size: var(--text-xl);
+  }
+
+  .intro {
+    font-size: var(--text-xs);
+    padding: 0 var(--s4);
+  }
+
+  .tab {
+    padding: var(--s2) var(--s4);
+    font-size: 9px;
+  }
+
+  .table {
+    font-size: var(--text-xs);
+  }
+
+  .table th,
+  .table td {
+    padding: var(--s3) var(--s2);
+  }
+
+  .measureCell {
+    padding-left: var(--s2) !important;
+  }
+
+  .measureDescription {
+    font-size: 9px;
+  }
+
+  .sizeCell {
+    min-width: 60px;
+  }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .tabs {
+    flex-direction: column;
+    gap: var(--s1);
+    border-bottom: none;
+  }
+
+  .tab {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+
+  .tabActive {
+    border-color: var(--color-text);
+    background: var(--sand);
+  }
+
+  .tabActive::after {
+    display: none;
+  }
+
+  .table th,
+  .table td {
+    padding: var(--s2) var(--s1);
+  }
+
+  .sizeCell {
+    min-width: 50px;
+  }
+}
+
+.sizeGuide {
+  padding: var(--s12) 0 var(--s16);
+  background: var(--color-bg);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--s10);
+}
+
+.header h2 {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--s3);
+  color: var(--color-text);
+}
+
+.intro {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--s2);
+  margin-bottom: var(--s8);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab {
+  padding: var(--s3) var(--s6);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.tab:hover {
+  color: var(--color-text);
+}
+
+.tabActive {
+  color: var(--color-text);
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-text);
+}
+
+.tableContainer {
+  overflow-x: auto;
+  margin: var(--s6) 0;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+}
+
+.table th {
+  padding: var(--s4) var(--s3);
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: var(--sand);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table td {
+  padding: var(--s4) var(--s3);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.measureCell {
+  text-align: left !important;
+  padding-left: var(--s4) !important;
+  background: var(--color-surface);
+  font-weight: 500;
+}
+
+.measureDescription {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: var(--s1);
+  line-height: 1.4;
+}
+
+.sizeCell {
+  font-weight: 500;
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.table tr:hover td {
+  background: var(--sand);
+}
+
+.table tr:hover .measureCell {
+  background: var(--sand);
+}
+
+.imageContainer {
+  margin: var(--s10) 0 var(--s6);
+  text-align: center;
+}
+
+.guideImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+.imageCaption {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  color: var(--muted);
+  margin-top: var(--s2);
+  font-style: italic;
+}
+
+.footer {
+  margin-top: var(--s6);
+  text-align: center;
+}
+
+.note {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sizeGuide {
+    padding: var(--s8) 0 var(--s12);
+  }
+
+  .header h2 {
+    font-size: var(--text-xl);
+  }
+
+  .intro {
+    font-size: var(--text-xs);
+    padding: 0 var(--s4);
+  }
+
+  .tab {
+    padding: var(--s2) var(--s4);
+    font-size: 9px;
+  }
+
+  .table {
+    font-size: var(--text-xs);
+  }
+
+  .table th,
+  .table td {
+    padding: var(--s3) var(--s2);
+  }
+
+  .measureCell {
+    padding-left: var(--s2) !important;
+  }
+
+  .measureDescription {
+    font-size: 9px;
+  }
+
+  .sizeCell {
+    min-width: 60px;
+  }
+
+  .imageContainer {
+    margin: var(--s8) 0 var(--s4);
+  }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .tabs {
+    flex-direction: column;
+    gap: var(--s1);
+    border-bottom: none;
+  }
+
+  .tab {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+
+  .tabActive {
+    border-color: var(--color-text);
+    background: var(--sand);
+  }
+
+  .tabActive::after {
+    display: none;
+  }
+
+  .table th,
+  .table td {
+    padding: var(--s2) var(--s1);
+  }
+
+  .sizeCell {
+    min-width: 50px;
+  }
+}

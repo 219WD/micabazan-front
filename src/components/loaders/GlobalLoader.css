@@ -1,0 +1,61 @@
+/* ══════════════════════════════════════════════════════════════════
+   GLOBAL LOADER - Pantalla de carga inicial
+   ══════════════════════════════════════════════════════════════════ */
+
+.global-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Círculo de expansión ──────────────────────────────────────── */
+.global-loader__circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background-color: #ECE5DB;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 10000;
+  will-change: transform;
+}
+
+/* ── Contenedor del logo ───────────────────────────────────────── */
+.global-loader__logo-container {
+  position: relative;
+  z-index: 10001;
+  max-width: 280px;
+  width: 50%;
+  height: auto;
+  opacity: 0;
+  will-change: transform, opacity;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── SVG del logo ──────────────────────────────────────────────── */
+.global-loader__logo-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 300px;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+}
+
+/* ── Path del SVG para el efecto de pincelado ──────────────────── */
+.global-loader__logo-svg path {
+  vector-effect: non-scaling-stroke;
+  will-change: stroke-dasharray, stroke-dashoffset;
+}
+

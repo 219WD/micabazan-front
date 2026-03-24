@@ -1,0 +1,29 @@
+.page { min-height: calc(100vh - var(--navbar-height)); padding: var(--s12) 0; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--s8); }
+@media (max-width: 768px) { .container { padding: 0 var(--s4); } }
+
+.header { margin-bottom: var(--s8); display: flex; flex-direction: column; gap: var(--s2); }
+.title { font-family: var(--font-serif); font-size: clamp(36px, 5vw, 56px); font-weight: 300; letter-spacing: -0.02em; }
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--s8);
+  gap: 0;
+}
+.tab {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding: var(--s3) var(--s5);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color var(--transition), border-color var(--transition);
+}
+.tab:hover { color: var(--ink); }
+.tabActive { color: var(--ink); border-color: var(--ink); }
+
+.content { min-height: 400px; }

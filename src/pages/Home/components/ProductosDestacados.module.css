@@ -1,0 +1,240 @@
+.section {
+  padding: var(--s20) 0;
+  background: var(--cream);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--s8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s10);
+}
+@media (max-width: 768px) { .container { padding: 0 var(--s4); } }
+
+/* Header */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s4);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-top: var(--s2);
+}
+
+.verTodosBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s3);
+}
+@media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px)  { .grid { grid-template-columns: repeat(2, 1fr); gap: var(--s2); } }
+
+/* Card */
+.card {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.imageWrap {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--sand);
+  border-radius: var(--radius-md);
+}
+
+/* Imagen con crossfade */
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 350ms ease;
+}
+.imageVisible { opacity: 1; }
+.imageHidden  { opacity: 0; }
+
+/* Zoom sutil en hover */
+.card:hover .imageVisible { transform: scale(1.04); transition: opacity 350ms ease, transform 500ms ease; }
+
+/* ────── ETIQUETA OFERTA ────────── */
+.offerBadge {
+  position: absolute;
+  top: var(--s3);
+  left: var(--s3);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: var(--terra);
+  color: var(--cream);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  z-index: 2;
+  animation: badgeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes badgeIn {
+  from { opacity: 0; transform: scale(0.8) translateY(-10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ────── SIN STOCK ────────── */
+.outOfStock {
+  position: absolute;
+  bottom: var(--s3);
+  left: var(--s3);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(26,23,20,0.65);
+  color: var(--cream);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  z-index: 4;
+}
+
+/* ────── BOTÓN AGREGAR ────────── */
+.addBtn {
+  position: absolute;
+  bottom: var(--s3);
+  right: var(--s3);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--transition), transform var(--transition), background var(--transition), color var(--transition);
+  border: none;
+  line-height: 1;
+  z-index: 3;
+}
+.imageWrap:hover .addBtn { opacity: 1; transform: translateY(0); }
+.addBtn:hover { background: var(--ink); color: var(--cream); }
+.addBtn.added { background: var(--terra); color: var(--cream); opacity: 1; transform: translateY(0); }
+
+/* ────── DOTS de imágenes ────────── */
+.imageDots {
+  position: absolute;
+  bottom: var(--s3);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.imageWrap:hover .imageDots { opacity: 1; }
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  transition: background var(--transition);
+}
+.dotActive { background: rgba(255,255,255,1); }
+
+/* ────── INFO DEL PRODUCTO ────────── */
+.info {
+  padding: var(--s3) var(--s1);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.category {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+/* Precio con tachado */
+.priceBlock {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  flex-wrap: wrap;
+}
+
+.price {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+.priceOffer {
+  color: var(--terra);
+  font-weight: 500;
+}
+
+.precioAntes {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--muted-light);
+  text-decoration: line-through;
+}
+
+/* ────── SKELETON ────────── */
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s3);
+}
+@media (max-width: 768px) { .skeletonGrid { grid-template-columns: repeat(2, 1fr); } }
+
+.skeleton {
+  aspect-ratio: 3/4;
+  background: linear-gradient(90deg, var(--sand) 25%, var(--sand-dark) 50%, var(--sand) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

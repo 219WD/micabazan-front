@@ -1,0 +1,40 @@
+.cta {
+  padding: var(--s20) var(--s8);
+  background: var(--ink);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s6);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+}
+
+.text {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--muted);
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+.btn {
+  border-color: var(--cream) !important;
+  color: var(--cream) !important;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+.btn:hover {
+  background: rgba(247,244,239,0.1) !important;
+}

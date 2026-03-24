@@ -1,0 +1,97 @@
+/* ══════════════════════════════════════════════════════════════════
+   MINI LOADER - Loader flotante para peticiones
+   ══════════════════════════════════════════════════════════════════ */
+
+.mini-loader {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 9998;
+  opacity: 0;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .mini-loader {
+    bottom: 30px;
+    right: 30px;
+  }
+}
+
+/* ── Spinner - Contenedor de rotación ──────────────────────────── */
+.mini-loader__spinner {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  transform: translate(0, 0);
+  will-change: transform;
+}
+
+/* ── Puntos del spinner ───────────────────────────────────────── */
+.mini-loader__dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #412E1C;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  margin: -4px 0 0 -4px;
+  opacity: 0.7;
+  animation: dot-scale 1.2s infinite;
+  will-change: transform, opacity;
+}
+
+.mini-loader__dot--1 {
+  transform: translate(0, -16px);
+  animation-delay: 0s;
+}
+
+.mini-loader__dot--2 {
+  transform: translate(11px, -11px);
+  animation-delay: 0.2s;
+}
+
+.mini-loader__dot--3 {
+  transform: translate(16px, 0);
+  animation-delay: 0.4s;
+}
+
+/* ── Animación de escala de puntos ───────────────────────────── */
+@keyframes dot-scale {
+  0% {
+    transform: translate(0, -16px) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(11px, -11px) scale(0.6);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(16px, 0) scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* ── Versión alternativa: círculo rotativo ──────────────────── */
+.mini-loader--pulse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-loader--pulse .mini-loader__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(65, 46, 28, 0.1);
+  border-top-color: #412E1C;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

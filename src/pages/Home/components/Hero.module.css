@@ -1,0 +1,145 @@
+/* ─── Wrapper general ────────────────────────────────────────────────────────── */
+.heroWrapper {
+  position: relative;
+  min-height: calc(100vh - var(--navbar-height));
+  display: flex;
+  align-items: center;
+}
+
+/* ─── Hero grid — ocupa todo el ancho disponible entre flechas ───────────────── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: var(--s20) var(--s8);
+  gap: var(--s12);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .heroWrapper { min-height: auto; }
+  .hero { grid-template-columns: 1fr; padding: var(--s16) var(--s4); }
+  .deco { display: none; }
+}
+
+/* ─── Contenido ──────────────────────────────────────────────────────────────── */
+.inner { display: flex; flex-direction: column; gap: var(--s8); }
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--terra);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  display: block;
+}
+.titleLine { display: block; }
+.title em  { font-style: italic; color: var(--terra); }
+
+.btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+/* ─── Imagen ─────────────────────────────────────────────────────────────────── */
+.deco {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.heroImg {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+/* ─── Flechas — fuera del grid, pegadas a los bordes del wrapper ─────────────── */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--muted);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.arrow:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--sand);
+}
+
+/* Se pegan a los bordes del wrapper sin invadir el contenido */
+.arrowLeft  { left: var(--s3); }
+.arrowRight { right: var(--s3); }
+
+@media (max-width: 900px) {
+  /* En mobile las flechas bajan al fondo, sobre los dots */
+  .arrow {
+    top: auto;
+    bottom: var(--s10);
+    transform: none;
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+  .arrowLeft  { left: calc(50% - 52px); }
+  .arrowRight { right: calc(50% - 52px); }
+}
+
+/* ─── Dots ───────────────────────────────────────────────────────────────────── */
+.dots {
+  position: absolute;
+  bottom: var(--s6);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--s2);
+  align-items: center;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sand-dark);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  padding: 0;
+}
+.dotActive {
+  background: var(--ink);
+  width: 20px;
+  border-radius: 3px;
+}

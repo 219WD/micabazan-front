@@ -1,0 +1,203 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--navbar-height);
+  background: var(--cream);
+  border-bottom: 1px solid var(--color-border);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 var(--s8);
+  gap: var(--s4);
+}
+
+@media (max-width: 768px) {
+  .navbar { padding: 0 var(--s4); }
+}
+
+/* Logo — Cormorant */
+.logo {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  white-space: nowrap;
+  text-align: center;
+  transition: opacity var(--transition);
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+.logo:hover { opacity: 0.7; }
+
+.logoImg {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* Sides */
+.side {
+  display: flex;
+  align-items: center;
+  gap: var(--s6);
+}
+
+/* Nav links — Inter uppercase */
+.navLink {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  transition: color var(--transition);
+  white-space: nowrap;
+}
+.navLink:hover { color: var(--ink); }
+.navLinkAccent { color: var(--terra); }
+.navLinkAccent:hover { color: var(--terra-dark); }
+
+/* Icon buttons */
+.iconBtn {
+  position: relative;
+  color: var(--muted);
+  font-size: 15px;
+  transition: color var(--transition);
+  display: flex;
+  align-items: center;
+}
+.iconBtn:hover { color: var(--ink); }
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 600;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+/* Auth links */
+.authLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--s5);
+}
+
+/* User dropdown */
+.userWrap { position: relative; }
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: var(--cream);
+  border: 1px solid var(--color-border);
+  min-width: 180px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropName {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding: var(--s3) var(--s4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dropLink {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding: var(--s3) var(--s4);
+  transition: color var(--transition), background var(--transition);
+}
+.dropLink:hover { color: var(--ink); background: var(--sand); }
+
+.dropLogout {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding: var(--s3) var(--s4);
+  text-align: left;
+  border-top: 1px solid var(--color-border);
+  transition: color var(--transition), background var(--transition);
+}
+.dropLogout:hover { color: var(--terra); background: var(--sand); }
+
+/* Burger — solo mobile */
+.burger {
+  display: none;
+  color: var(--muted);
+  font-size: 16px;
+  transition: color var(--transition);
+}
+.burger:hover { color: var(--ink); }
+
+@media (max-width: 768px) {
+  .burger { display: flex; }
+  .side .navLink,
+  .authLinks { display: none; }
+}
+
+/* Mobile menu */
+.mobileMenu {
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  right: 0;
+  background: var(--cream);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  padding: var(--s4) 0;
+}
+
+.mobileLink {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  padding: var(--s3) var(--s6);
+  transition: color var(--transition);
+}
+.mobileLink:hover { color: var(--ink); }
+
+.mobileDivider { border-top: 1px solid var(--color-border); margin: var(--s2) 0; }
+
+.mobileLogout {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--terra);
+  padding: var(--s3) var(--s6);
+  text-align: left;
+}
