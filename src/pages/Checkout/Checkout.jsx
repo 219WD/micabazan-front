@@ -46,14 +46,22 @@ const Checkout = () => {
   const navigate = useNavigate();
   const { copied, copy } = useCopy();
 
+  const savedAddr = user?.savedAddress;
+
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [deliveryMethod, setDeliveryMethod] = useState("retiro");
   const [paymentMethod, setPaymentMethod] = useState("mercadopago");
   const [address, setAddress] = useState({
-    name: user?.name || "", address: "", apartment: "",
-    city: "", province: "", postalCode: "", phone: "", extraNotes: "",
+    name:       savedAddr?.name       || user?.name || "",
+    address:    savedAddr?.address    || "",
+    apartment:  savedAddr?.apartment  || "",
+    city:       savedAddr?.city       || "",
+    province:   savedAddr?.province   || "",
+    postalCode: savedAddr?.postalCode || "",
+    phone:      savedAddr?.phone      || "",
+    extraNotes: savedAddr?.extraNotes || "",
   });
 
   // ─── Estado del comprobante ────────────────────────────────────────────────
@@ -189,6 +197,26 @@ const Checkout = () => {
                 {deliveryMethod === "envio" && (
                   <div className={styles.addressForm}>
                     <p className={styles.addressLabel}>Dirección de envío</p>
+
+                    {savedAddr && (
+                      <button
+                        type="button"
+                        className={styles.useSavedBtn}
+                        onClick={() => setAddress({
+                          name:       savedAddr.name       || "",
+                          address:    savedAddr.address    || "",
+                          apartment:  savedAddr.apartment  || "",
+                          city:       savedAddr.city       || "",
+                          province:   savedAddr.province   || "",
+                          postalCode: savedAddr.postalCode || "",
+                          phone:      savedAddr.phone      || "",
+                          extraNotes: savedAddr.extraNotes || "",
+                        })}
+                      >
+                        ↩ Usar mi dirección guardada
+                      </button>
+                    )}
+
                     <div className={styles.formGrid}>
                       <div className={styles.field}><label>Receptor *</label><input name="name" value={address.name} onChange={(e) => setAddress({ ...address, name: e.target.value })} placeholder="Nombre completo" /></div>
                       <div className={styles.field}><label>Teléfono *</label><input name="phone" value={address.phone} onChange={(e) => setAddress({ ...address, phone: e.target.value })} placeholder="1155667788" /></div>
