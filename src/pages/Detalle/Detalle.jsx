@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,6 +8,8 @@ import {
   faShoppingBag,
   faTimes,
   faSearchPlus,
+  faRandom,
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import { productosAPI } from "../../api/productosAPI";
 import { useCart } from "../../context/CartContext";
@@ -85,6 +87,75 @@ const Lightbox = ({ imagenes, initialIndex, onClose }) => {
   );
 };
 
+/* ─── ProductCard Sugerido ───────────────────────────────────── */
+const SuggestedProductCard = ({ p, onAdd, agregando, agregado, onClick }) => {
+  const [imgIndex, setImgIndex] = useState(0);
+  const hoverTimerRef = useRef(null);
+
+  const imagenes = [p.image, ...(p.additionalImages || [])].filter(Boolean);
+  const hasMultipleImages = imagenes.length > 1;
+
+  const handleMouseEnter = () => {
+    if (!hasMultipleImages) return;
+    hoverTimerRef.current = setTimeout(() => setImgIndex(1), 120);
+  };
+
+  const handleMouseLeave = () => {
+    clearTimeout(hoverTimerRef.current);
+    setImgIndex(0);
+  };
+
+  return (
+    <div
+      className={styles.suggestedCard}
+      onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className={styles.suggestedImageWrap}>
+        {imagenes.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt={p.title}
+            className={`${styles.suggestedImage} ${imgIndex === i ? styles.suggestedImageVisible : styles.suggestedImageHidden}`}
+            onError={(e) => { e.target.src = "https://via.placeholder.com/400x500?text=."; }}
+          />
+        ))}
+        {p.stock > 0 && (
+          <button
+            className={styles.suggestedAddBtn}
+            onClick={(e) => onAdd(e, p)}
+            disabled={agregando === p._id}
+          >
+            {agregado === p._id ? "✓" : <FontAwesomeIcon icon={faPlus} />}
+          </button>
+        )}
+        {hasMultipleImages && (
+          <div className={styles.suggestedImageDots}>
+            {imagenes.map((_, i) => (
+              <span key={i} className={`${styles.suggestedDot} ${imgIndex === i ? styles.suggestedDotActive : ""}`} />
+            ))}
+          </div>
+        )}
+      </div>
+      <div className={styles.suggestedInfo}>
+        <p className={styles.suggestedName}>{p.title}</p>
+        <div className={styles.suggestedPriceBlock}>
+          {p.precioAntes && p.precioAntes > p.price ? (
+            <>
+              <p className={styles.suggestedPrecioAntes}>{formatPrice(p.precioAntes, p.isUsd)}</p>
+              <p className={styles.suggestedPrice}>{formatPrice(p.price, p.isUsd)}</p>
+            </>
+          ) : (
+            <p className={styles.suggestedPrice}>{formatPrice(p.price, p.isUsd)}</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 /* ─── Detalle ───────────────────────────────────── */
 const Detalle = () => {
   const { id } = useParams();
@@ -99,6 +170,12 @@ const Detalle = () => {
   const [agregado, setAgregado] = useState(false);
   const [imgActiva, setImgActiva] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  
+  // Estados para productos sugeridos
+  const [sugeridos, setSugeridos] = useState([]);
+  const [tipoSugeridos, setTipoSugeridos] = useState("categoria"); // "categoria" o "aleatorio"
+  const [agregandoSugerido, setAgregandoSugerido] = useState(null);
+  const [agregadoSugerido, setAgregadoSugerido] = useState(null);
 
   const [colorSelected, setColorSelected] = useState(null);
   const [talleSelected, setTalleSelected] = useState(null);
@@ -132,6 +209,62 @@ const Detalle = () => {
     };
     fetchData();
   }, [id]);
+
+  // Cargar productos sugeridos cuando se carga el producto
+  useEffect(() => {
+    if (producto) {
+      cargarSugeridos("categoria");
+    }
+  }, [producto]);
+
+  const cargarSugeridos = async (tipo) => {
+    if (!producto) return;
+    
+    try {
+      const { data: todosProductos } = await productosAPI.getAll({ active: true });
+      
+      // Filtrar el producto actual
+      let sugeridosFiltrados = todosProductos.filter(p => p._id !== producto._id);
+      
+      if (tipo === "categoria" && producto.category) {
+        // Mostrar productos de la misma categoría primero
+        const mismaCategoria = sugeridosFiltrados.filter(p => p.category === producto.category);
+        const otrasCategorias = sugeridosFiltrados.filter(p => p.category !== producto.category);
+        sugeridosFiltrados = [...mismaCategoria, ...otrasCategorias];
+      } else if (tipo === "aleatorio") {
+        // Mezclar aleatoriamente
+        for (let i = sugeridosFiltrados.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [sugeridosFiltrados[i], sugeridosFiltrados[j]] = [sugeridosFiltrados[j], sugeridosFiltrados[i]];
+        }
+      }
+      
+      // Tomar máximo 8 productos sugeridos
+      const sugeridosLimitados = sugeridosFiltrados.slice(0, 8);
+      setSugeridos(sugeridosLimitados);
+      setTipoSugeridos(tipo);
+    } catch (error) {
+      console.error("Error cargando productos sugeridos:", error);
+    }
+  };
+
+  const handleRandomSugeridos = () => {
+    cargarSugeridos("aleatorio");
+  };
+
+  const handleSuggestedAdd = async (e, producto) => {
+    e.stopPropagation();
+    setAgregandoSugerido(producto._id);
+    try {
+      await addToCart(producto, 1);
+      setAgregadoSugerido(producto._id);
+      setTimeout(() => setAgregadoSugerido(null), 1500);
+    } catch (err) {
+      alert(err.response?.data?.error || "Error al agregar al carrito");
+    } finally {
+      setAgregandoSugerido(null);
+    }
+  };
 
   // ── Derivados ─────────────────────────────────────────────────────────────
   const usaVariantes = producto?.variantes?.length > 0;
@@ -225,7 +358,6 @@ const Detalle = () => {
     setErrorVariante("");
     setAgregando(true);
     try {
-      // ✅ Esto ya pasa la variante correctamente
       await addToCart(producto, cantidad, {
         talle: talleSelected,
         color: colorSelected,
@@ -529,6 +661,47 @@ const Detalle = () => {
             </div>
           </div>
         </div>
+
+        {/* ── Sección de productos sugeridos ── */}
+        {sugeridos.length > 0 && (
+          <div className={styles.suggestedSection}>
+            <div className={styles.suggestedHeader}>
+              <div className={styles.suggestedTitleWrap}>
+                <h2 className={styles.suggestedTitle}>
+                  {tipoSugeridos === "categoria" ? "Productos relacionados" : "Te puede interesar"}
+                </h2>
+                <span className={styles.suggestedBadge}>
+                  {tipoSugeridos === "categoria" ? (
+                    <><FontAwesomeIcon icon={faTag} /> Misma categoría</>
+                  ) : (
+                    <><FontAwesomeIcon icon={faRandom} /> Selección aleatoria</>
+                  )}
+                </span>
+              </div>
+              <button
+                className={styles.randomBtn}
+                onClick={handleRandomSugeridos}
+                title="Ver sugerencias aleatorias"
+              >
+                <FontAwesomeIcon icon={faRandom} />
+                <span>Aleatorio</span>
+              </button>
+            </div>
+            
+            <div className={styles.suggestedGrid}>
+              {sugeridos.map((p) => (
+                <SuggestedProductCard
+                  key={p._id}
+                  p={p}
+                  onAdd={handleSuggestedAdd}
+                  agregando={agregandoSugerido}
+                  agregado={agregadoSugerido}
+                  onClick={() => navigate(`/productos/${p._id}`)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {lightboxOpen && (

@@ -7,9 +7,6 @@ import CategoriesHero from "./components/CategoriesHero";
 import About from "./components/About";
 import ModalCupon from "./components/ModalCupon.jsx";
 
-// import Categorias from "./components/Categorias";
-// import Testimonios from "./components/Testimonios";
-
 const Home = () => {
   // Mostrar modal solo si no ha sido cerrado antes en esta sesión
   const [showModal, setShowModal] = useState(() => {
